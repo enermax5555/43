@@ -41,9 +41,8 @@ export default class Application extends EventEmitter {
       terrain,
       population
     });
-  }
     document.body.querySelector(".main").appendChild(box);
-
+  }
     
   
 
