@@ -15,6 +15,7 @@ export default class Application extends EventEmitter {
 	
 	
 	this.emit(Application.events.READY);
+	this._load();
   }
   _startLoading() {
 	this._loading.style = 'display: block;';
@@ -40,7 +41,7 @@ export default class Application extends EventEmitter {
     box.innerHTML = this._render({
       name,
       terrain,
-      population
+      population,
     });
     document.body.querySelector(".main").appendChild(box);
   }
