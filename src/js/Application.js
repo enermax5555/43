@@ -10,19 +10,42 @@ export default class Application extends EventEmitter {
 
   constructor() {
     super();
-
+	
+	this._loading = document.body.querySelector('.progress')
+	this.load();
+	
+	this.emit(Application.events.READY);
+  }
+  _startLoading() {
+	this._loading.style = 'display: block;';
+  }
+  _stopLoading() {
+	  this.loading.style = 'display: none;';
+  }
+  async _load(url = " https://swapi.boom.dev/api/planets") {
+	  this.startLoading();
+	  
+		let request = await fetch(url);
+		let jsonform = await request.json();
+		jsonform.results.forEach(planet => this._create(planet.name, planet.terrain, planet.population))
+			if (jsonform.next !== null) {
+				await this._load(jsonform.next)
+			}
+	  this.stopLoading();
+  }
+  _create(name, terrain, population) {
     const box = document.createElement("div");
     box.classList.add("box");
     box.innerHTML = this._render({
-      name: "Placeholder",
-      terrain: "placeholder",
-      population: 0,
+      name,
+      terrain,
+      population
     });
-
+  }
     document.body.querySelector(".main").appendChild(box);
 
-    this.emit(Application.events.READY);
-  }
+    
+  
 
   _render({ name, terrain, population }) {
     return `
