@@ -20,13 +20,14 @@ export default class Application extends EventEmitter {
 	this._loading.style = 'display: block;';
   }
   _stopLoading() {
-	  this.loading.style = 'display: none;';
+	  this._loading.style = 'display: none;';
   }
-  async _load(url = " https://swapi.boom.dev/api/planets") {
+  async _load(url = "https://swapi.boom.dev/api/planets") {
 	  this._startLoading();
 	  
 		let request = await fetch(url);
 		let jsonform = await request.json();
+		
 		jsonform.results.forEach(planet => this._create(planet.name, planet.terrain, planet.population))
 			if (jsonform.next !== null) {
 				await this._load(jsonform.next)
