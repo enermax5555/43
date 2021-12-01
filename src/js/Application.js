@@ -23,7 +23,7 @@ export default class Application extends EventEmitter {
 	  this.loading.style = 'display: none;';
   }
   async _load(url = " https://swapi.boom.dev/api/planets") {
-	  this.startLoading();
+	  this._startLoading();
 	  
 		let request = await fetch(url);
 		let jsonform = await request.json();
@@ -31,7 +31,7 @@ export default class Application extends EventEmitter {
 			if (jsonform.next !== null) {
 				await this._load(jsonform.next)
 			}
-	  this.stopLoading();
+	  this._stopLoading();
   }
   _create(name, terrain, population) {
     const box = document.createElement("div");
